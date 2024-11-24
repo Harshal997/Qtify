@@ -10,7 +10,8 @@ function App() {
       <div className={styles.body}>
       <Navbar />
       <Hero />
-      <Section />
+      <Section type='top'/>
+      <Section type='new'/>
       </div>
     </BrowserRouter>
   );

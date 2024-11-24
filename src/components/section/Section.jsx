@@ -4,8 +4,8 @@ import { CardComponent } from "../card/Card";
 import styles from './Section.module.css'
 import { Button, Grid2 } from "@mui/material";
 
-export const Section = () => {
-  const url = "https://qtify-backend-labs.crio.do/albums/top";
+export const Section = ({type}) => {
+  const url = type === 'top' ? "https://qtify-backend-labs.crio.do/albums/top" : "https://qtify-backend-labs.crio.do/albums/new";
 
   const [data, setData] = useState([]);
 
@@ -32,7 +32,7 @@ export const Section = () => {
           fontSize: 20,
         }}
       >
-        Top Albums
+        {type === 'top' ? "Top Albums" : "New Albums"}
       </h2>
       <Button sx={{color: "#34C94B"}}>
         Show all
