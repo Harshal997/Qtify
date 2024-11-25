@@ -1,4 +1,33 @@
 .heading {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
+
+.swiperContainer {
+    position: relative;
+  }
+  
+  .customPrevButton,
+  .customNextButton {
+    position: absolute;
+    top: 50%;                  /* Center vertically */
+    transform: translateY(-50%);
+    z-index: 10;               /* Ensure above slides */
+    cursor: pointer;           /* Show pointer cursor */
+    width: 40px;               /* Adjust arrow size */
+    height: 40px;
+  }
+  
+  .customPrevButton {
+    left: 10px;                /* Position on the left */
+  }
+  
+  .customNextButton {
+    right: 10px;               /* Position on the right */
+  }
+  
+  .arrowImage {
+    width: 100%;               /* Fill container */
+    height: 100%;
+  }
+  
