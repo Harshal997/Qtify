@@ -9,7 +9,7 @@ import React from "react";
 import styles from "./Card.module.css";
 import { Chip } from "@mui/material";
 
-export const CardComponent = ({title, image, follows}) => {
+export const CardComponent = ({title, image, follows, likes}) => {
     return (
         <>
           <Card
@@ -42,7 +42,7 @@ export const CardComponent = ({title, image, follows}) => {
               }}
             >
               <Chip
-                label={`${follows} follows`}
+                label={follows ? `${follows} follows` : `${likes} likes`}
                 sx={{
                   backgroundColor: 'black',
                   fontSize: 10,

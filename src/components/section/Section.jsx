@@ -22,17 +22,19 @@ export const Section = ({ type, data, genres }) => {
   console.log("genres in section", genres);
   const handleTabChange = (event, newValue) => {
     console.log(newValue)
-    setSelectedTab(newValue); // Update state with clicked tab value
+    setSelectedTab(newValue);
     const url = newValue !== 'All' ? `https://qtify-backend-labs.crio.do/songs?q=${encodeURIComponent(newValue)}` : "https://qtify-backend-labs.crio.do/songs";
     axios.get(url)
       .then(response => setSongsData(response.data))
       .catch(error => console.error("Error fetching genres:", error));
   };
-  
+
   useEffect(() => {
-
-  },[songsData])
-
+    axios.get("https://qtify-backend-labs.crio.do/songs")
+      .then(response => setSongsData(response.data))
+      .catch(error => console.error("Error fetching genres:", error));
+  },[])
+  
   return (
     <>
       <div className={styles.heading}>
@@ -46,7 +48,7 @@ export const Section = ({ type, data, genres }) => {
         >
           {type}
         </h2>
-        <Button sx={{ color: "#34C94B" }}>Show all</Button>
+        <Button sx={{ color: "#34C94B" }}>{!genres && "Show All"}</Button>
       </div>
       <div className={styles.swiperContainer}>
         <div ref={prevRef} className={styles.customPrevButton} id="customPrev">
@@ -69,27 +71,26 @@ export const Section = ({ type, data, genres }) => {
                 onChange={handleTabChange}
                 aria-label="lab API tabs example"
                 TabIndicatorProps={{
-                  sx: { backgroundColor: "#34C94B" }, // Customize the underscore color here
+                  sx: { backgroundColor: "#34C94B" },
                 }}
               >
                 <Tab
                   key="All"
                   sx={{
                     fontFamily: 'Poppins',
-                    color: "white", // Text color
-                    "&.Mui-selected": { color: "white" }, // Prevents color change when selected
+                    color: "white",
+                    "&.Mui-selected": { color: "white" },
                   }}
                   label="All"
                   value="All"
                 />{" "}
-                {/* Extra "All" tab */}
                 {genres.map((genre) => (
                   <Tab
                     key={genre.key}
                     sx={{
                       fontFamily: 'Poppins',
-                      color: "white", // Text color
-                      "&.Mui-selected": { color: "white" }, // Prevents color change when selected
+                      color: "white",
+                      "&.Mui-selected": { color: "white" },
                     }}
                     label={genre.label}
                     value={genre.key}
@@ -101,32 +102,27 @@ export const Section = ({ type, data, genres }) => {
         )}
 
         <Swiper
-          spaceBetween={10} // Gap between slides (similar to Grid2 spacing)
-          slidesPerView={8} // Number of slides visible at once
+          spaceBetween={10}
+          slidesPerView={8}
           navigation={{
-            nextEl: nextRef.current, // Use IDs for navigation elements
+            nextEl: nextRef.current,
             prevEl: prevRef.current,
-          }} // Enable navigation arrows
-          modules={[Navigation]} // Include navigation functionality
+          }} 
+          modules={[Navigation]}
           breakpoints={{
-            // Responsive settings
             320: {
-              // For screens ≥ 320px
               slidesPerView: 2,
               spaceBetween: 8,
             },
             640: {
-              // For screens ≥ 640px
               slidesPerView: 4,
               spaceBetween: 12,
             },
             1024: {
-              // For screens ≥ 1024px
               slidesPerView: 6,
               spaceBetween: 16,
             },
             1440: {
-              // For screens ≥ 1440px
               slidesPerView: 8,
               spaceBetween: 20,
             },
@@ -137,10 +133,10 @@ export const Section = ({ type, data, genres }) => {
             songsData.map((item, index) => (
               <SwiperSlide key={index}>
                 {" "}
-                {/* Each slide is horizontal */}
                 <CardComponent
                   title={item.title}
                   follows={item.follows}
+                  likes={item.likes}
                   image={item.image}
                 />
               </SwiperSlide>
@@ -149,10 +145,10 @@ export const Section = ({ type, data, genres }) => {
             data.map((item, index) => (
               <SwiperSlide key={index}>
                 {" "}
-                {/* Each slide is horizontal */}
                 <CardComponent
                   title={item.title}
                   follows={item.follows}
+                  likes={item.likes}
                   image={item.image}
                 />
               </SwiperSlide>
